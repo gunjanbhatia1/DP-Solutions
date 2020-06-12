@@ -1,0 +1,196 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+
+ 
+
+   class C {
+	
+	InputStream is;
+	static PrintWriter out;
+	static long ctr;
+	static long mod=(long)(1e9+7);  
+	  
+	  static void dfs(LinkedList<Integer> l[],int u,int vis[])
+	  {
+		  vis[u]=1;
+		  
+		  for(int v:l[u])
+		  {
+			  if(vis[v]==0)
+			  {
+				  ctr++;
+				  dfs(l,v,vis);
+			  }
+		  }
+	  }
+	
+    void solve()
+    {
+		int t=ni();
+		while(t-->0)
+		{
+			int n=ni(),m=ni();
+			LinkedList<Integer> l[]=new LinkedList[n];
+			for(int i=0;i<n;i++)
+			{
+				l[i]=new LinkedList<Integer>();
+			}
+			
+			for(int i=0;i<m;i++)
+			{
+				int u=ni()-1,v=ni()-1;
+				l[u].add(v);l[v].add(u);
+			}
+			
+			int vis[]=new int[n];
+			int con=0;
+			long ans=1L;
+			for(int i=0;i<n;i++)
+			{
+				if(vis[i]==0)
+				{
+					con++;
+					ctr=1;
+					dfs(l,i,vis);
+					ans=(ans*ctr)%mod;
+				}
+			}
+			
+			out.println(con+" "+ans);
+			
+			
+		}
+		
+			
+		
+		
+	}
+		
+	
+	
+	
+	
+	
+	
+	
+ 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	
+	 
+	
+	
+	
+ 
+ 
+	static class pair
+	{
+		int k;
+		long v;
+		pair(int kk,long vv)
+		{
+			k=kk;;
+			v=vv;
+		}
+	}
+	  
+	  
+	
+    //---------- I/O Template ----------
+    
+    public static void main(String[] args) { new C().run(); }
+    void run() { 
+        is = System.in; 
+        out = new PrintWriter(System.out);
+        solve();
+        out.flush();
+    }
+    
+    byte input[] = new byte[1024];
+    int len = 0, ptr = 0;
+    
+    int readByte() { 
+        if(ptr >= len) { ptr = 0; 
+            try { len = is.read(input); } 
+            catch(IOException e) { throw new InputMismatchException(); } 
+            if(len <= 0) { return -1; } 
+        } return input[ptr++];
+    }
+    boolean isSpaceChar(int c) { return !( c >= 33 && c <= 126 ); }
+    int skip() { 
+        int b = readByte(); 
+        while(b != -1 && isSpaceChar(b)) { b = readByte(); } 
+        return b;
+    }
+    
+    char nc() { return (char)skip(); }
+    String ns() { 
+        int b = skip(); 
+        StringBuilder sb = new StringBuilder(); 
+        while(!isSpaceChar(b)) { sb.appendCodePoint(b); b = readByte(); } 
+        return sb.toString();
+    }
+    String nLine() { 
+        int b = skip(); 
+        StringBuilder sb = new StringBuilder(); 
+        while( !(isSpaceChar(b) && b != ' ') ) { sb.appendCodePoint(b); b = readByte(); } 
+        return sb.toString();
+    }
+    int ni() { 
+        int n = 0, b = readByte(); 
+        boolean minus = false; 
+        while(b != -1 && !( (b >= '0' && b <= '9') || b == '-')) { b = readByte(); } 
+        if(b == '-') { minus = true; b = readByte(); } 
+        if(b == -1) { return -1; }  //no input 
+        while(b >= '0' && b <= '9') { n = n * 10 + (b - '0'); b = readByte(); } 
+        return minus ? -n : n;
+    }
+    long nl() { 
+        long n = 0L;    int b = readByte(); 
+        boolean minus = false; 
+        while(b != -1 && !( (b >= '0' && b <= '9') || b == '-')) { b = readByte(); } 
+        if(b == '-') { minus = true; b = readByte(); } 
+        while(b >= '0' && b <= '9') { n = n * 10 + (b - '0'); b = readByte(); } 
+        return minus ? -n : n;
+    }
+ 
+    double nd() { return Double.parseDouble(ns()); }
+    float nf() { return Float.parseFloat(ns()); }
+    int[] na(int n) { 
+        int a[] = new int[n]; 
+        for(int i = 0; i < n; i++) { a[i] = ni(); } 
+        return a;
+    }
+    char[] ns(int n) { 
+        char c[] = new char[n]; 
+        int i, b = skip(); 
+        for(i = 0; i < n; i++) { 
+            if(isSpaceChar(b)) { break; } 
+            c[i] = (char)b; b = readByte(); 
+        } return i == n ? c : Arrays.copyOf(c,i);
+    }
+	static void pa(int a[])
+	{
+		for(int i=0;i<a.length;i++)
+		out.print(a[i]+" ");
+	
+	}
+	 static void pa(long a[])
+	{
+		for(int i=0;i<a.length;i++)
+		out.print(a[i]+" ");
+		out.println();
+	}
+	
+}
